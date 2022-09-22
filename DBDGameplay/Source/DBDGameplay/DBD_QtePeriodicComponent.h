@@ -20,13 +20,15 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Qte", BlueprintReadWrite)
 		int currentTimeBetweenQte = 0;
 	UPROPERTY(VisibleAnywhere, Category = "Qte", BlueprintReadWrite)
-		int timerQte = 0;
+		float timerQte = 0;
 	UPROPERTY(VisibleAnywhere, Category = "Qte", BlueprintReadWrite)
 		int currentIntervalToPressed = 0;
 	UPROPERTY(VisibleAnywhere, Category = "Qte", BlueprintReadWrite)
 		bool canAppeared = false;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "Qte", BlueprintReadWrite)
 		class UDBD_QteWidget* currentWidgetDisplay = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Qte", BlueprintReadWrite)
+		float timeMaxQte = 1;
 public:
 	UDBD_QtePeriodicComponent();
 protected:

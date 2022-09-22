@@ -11,15 +11,18 @@ void UDBD_QtePeriodicComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	if(currentWidgetDisplay)
 	{
 		timerQte += DeltaTime * 0.4f;
+		currentWidgetDisplay->QteSliderUpdate(timerQte);
+		if(timerQte > timeMaxQte)
+		{
+			currentIntervalToPressed = 0;
+			StopQte();
+			return;
+		}
 		FIntervalToPressedInput _currentInterval = allIntervalInputs[currentIntervalToPressed];
 		if(_currentInterval.intervalFinish < timerQte)
 		{
+			if(currentIntervalToPressed >= allIntervalInputs.Num() - 1) return;
 			currentIntervalToPressed++;
-			if(currentIntervalToPressed > allIntervalInputs.Num() - 1)
-			{
-				currentIntervalToPressed = 0;
-				StopQte();
-			}
 		}
 		if(GetWorld()->GetFirstPlayerController()->IsInputKeyDown(_currentInterval.key))
 		{
@@ -36,6 +39,7 @@ void UDBD_QtePeriodicComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	timerQte += DeltaTime;
 	if(timerQte > (isRandomizeTimeBetweenQte ? currentTimeBetweenQte : timeBetweenQte))
 	{
+		GEngine->AddOnScreenDebugMessage(-1,2,FColor::Black,"spawnQte");
 		SpawnQte();
 		ResetRandomizeTimeBetweenQte();
 	}
@@ -43,15 +47,18 @@ void UDBD_QtePeriodicComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 
 void UDBD_QtePeriodicComponent::StartQte()
 {
+	if(canAppeared)return;
 	ResetRandomizeTimeBetweenQte();
 	canAppeared = true;
 }
 
 void UDBD_QtePeriodicComponent::StopQte()
 {
+	timerQte = 0;
+	canAppeared = false;
+	if(!currentWidgetDisplay) return;
 	currentWidgetDisplay->RemoveFromViewport();
 	currentWidgetDisplay = nullptr;
-	canAppeared = false;
 }
 
 void UDBD_QtePeriodicComponent::ResetQte()
@@ -68,5 +75,6 @@ int UDBD_QtePeriodicComponent::ResetRandomizeTimeBetweenQte()
 void UDBD_QtePeriodicComponent::SpawnQte()
 {
 	currentWidgetDisplay = CreateWidget<UDBD_QteWidget>(GetWorld(), widgetQte);
+	currentWidgetDisplay->QteInterval(allIntervalInputs[0].intervalStart,allIntervalInputs[0].intervalFinish);
 	currentWidgetDisplay->AddToViewport();
 }

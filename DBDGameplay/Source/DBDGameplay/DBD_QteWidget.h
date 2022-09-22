@@ -1,10 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Components/Button.h"
 #include "Components/ProgressBar.h"
 #include "Components/Slider.h"
 #include "DBD_QteWidget.generated.h"
@@ -17,10 +14,11 @@ class DBDGAMEPLAY_API UDBD_QteWidget : public UUserWidget
 {
 	GENERATED_BODY()
 protected:
-	UPROPERTY(meta = (BindWidget))
-		USlider* qteSlider;
-	UPROPERTY(meta = (BindWidget))
-		UProgressBar* qteProgressBar;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+		USlider* qteSlider = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+		UProgressBar* qteProgressBar = nullptr;
 public:
-	
+	void QteSliderUpdate(float _value);
+	void QteInterval(float _intervalMin ,float _intervalMax);
 };

@@ -23,6 +23,8 @@ protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
 		TArray<TObjectPtr<class ADBD_Survivor>> survivorsCurrentlyFixing;
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
+		UStaticMeshComponent* staticMesh; 
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
 		class UDBD_QtePeriodicComponent* qteComponent = nullptr;
 public:	
 	ADBD_Engine();
@@ -37,6 +39,9 @@ public:
 		void RemoveFix(float value);
 	UFUNCTION(BlueprintCallable)
 		void EngineBlast();
-	void AddFixOnSuccessQte();
-	virtual void Interactable(class ADBD_Character* _character);
+	UFUNCTION(BlueprintCallable)
+		void AddFixOnSuccessQte();
+	void Interactable(class ADBD_Character* _character);
+	UFUNCTION(BlueprintCallable)
+	void StopInteractable(class ADBD_Survivor* _survivor);
 };

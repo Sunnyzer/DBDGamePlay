@@ -26,6 +26,10 @@ protected:
 		UStaticMeshComponent* staticMesh; 
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
 		class UDBD_QtePeriodicComponent* qteComponent = nullptr;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+		TSubclassOf<class UDBD_EngineUserWidget> engineClassWidget;
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
+		class UDBD_EngineUserWidget* engineWidget = nullptr;
 public:	
 	ADBD_Engine();
 
@@ -43,5 +47,5 @@ public:
 		void AddFixOnSuccessQte();
 	void Interactable(class ADBD_Character* _character);
 	UFUNCTION(BlueprintCallable)
-	void StopInteractable(class ADBD_Survivor* _survivor);
+		void StopInteractable(class ADBD_Survivor* _survivor);
 };

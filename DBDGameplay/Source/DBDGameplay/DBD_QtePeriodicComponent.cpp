@@ -29,7 +29,12 @@ void UDBD_QtePeriodicComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 			if(_currentInterval.intervalStart < timerQte)
 			{
 				onQteSuccess.Broadcast();
-				GEngine->AddOnScreenDebugMessage(1,2,FColor::Black,TEXT("SuccessQte"));
+				StopQte();
+				return;
+			}
+			if(_currentInterval.intervalStart > timerQte || _currentInterval.intervalFinish < timerQte)
+			{
+				onQteFailed.Broadcast();
 				StopQte();
 			}
 		}
@@ -39,7 +44,6 @@ void UDBD_QtePeriodicComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	timerQte += DeltaTime;
 	if(timerQte > (isRandomizeTimeBetweenQte ? currentTimeBetweenQte : timeBetweenQte))
 	{
-		GEngine->AddOnScreenDebugMessage(-1,2,FColor::Black,"spawnQte");
 		SpawnQte();
 		ResetRandomizeTimeBetweenQte();
 	}
@@ -57,6 +61,7 @@ void UDBD_QtePeriodicComponent::StopQte()
 	timerQte = 0;
 	canAppeared = false;
 	if(!currentWidgetDisplay) return;
+	
 	currentWidgetDisplay->RemoveFromViewport();
 	currentWidgetDisplay = nullptr;
 }

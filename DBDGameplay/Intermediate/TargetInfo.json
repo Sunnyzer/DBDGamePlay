@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "DBDGameplay",
+			"Path": "C:\\Users\\ZIOU2404\\Documents\\GitHub\\DBDGamePlay\\DBDGameplay\\Source\\DBDGameplay.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "DBDGameplayEditor",
+			"Path": "C:\\Users\\ZIOU2404\\Documents\\GitHub\\DBDGamePlay\\DBDGameplay\\Source\\DBDGameplayEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
